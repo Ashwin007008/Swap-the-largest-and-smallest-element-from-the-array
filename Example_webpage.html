@@ -474,60 +474,160 @@
         let isAutoRunning = false;
         let currentLanguage = 'python';
 
-        // Language configurations
+        // Language configurations with complete code structures
         const languages = {
             python: {
                 icon: '🐍',
                 name: 'Python',
-                variables: ['n', 'arr', 'min_index', 'max_index'],
+                variables: ['n', 'arr', 'min_val', 'max_val', 'min_index', 'max_index'],
                 code: [
+                    { text: '# Python Array Swap Program', comment: 'Program header' },
+                    { text: 'arr = [10, 2, 3, 4, 1]  # Input array', comment: 'Initialize array' },
                     { text: 'n = len(arr)', comment: 'Get array length' },
-                    { text: 'print(f"Array: {arr}")', comment: 'Display input array' },
-                    { text: 'min_index = arr.index(min(arr))', comment: 'Find minimum element index' },
-                    { text: 'max_index = arr.index(max(arr))', comment: 'Find maximum element index' },
+                    { text: 'print(f"Original array: {arr}")', comment: 'Display input array' },
+                    { text: 'min_val = min(arr)', comment: 'Find minimum value' },
+                    { text: 'min_index = arr.index(min_val)', comment: 'Find minimum index' },
+                    { text: 'max_val = max(arr)', comment: 'Find maximum value' },
+                    { text: 'max_index = arr.index(max_val)', comment: 'Find maximum index' },
+                    { text: 'print(f"Min: {min_val} at index {min_index}")', comment: 'Show min details' },
+                    { text: 'print(f"Max: {max_val} at index {max_index}")', comment: 'Show max details' },
                     { text: 'arr[min_index], arr[max_index] = arr[max_index], arr[min_index]', comment: 'Swap using tuple unpacking' },
-                    { text: 'print(f"Result: {arr}")', comment: 'Display final array' }
+                    { text: 'print(f"Final array: {arr}")', comment: 'Display result' }
+                ],
+                steps: [
+                    { message: '🐍 Python: Starting program execution', action: 'showHeader' },
+                    { message: '📥 Python: Reading input array', action: 'initArray' },
+                    { message: '📏 Python: Calculating array length', action: 'calcLength' },
+                    { message: '📺 Python: Displaying original array', action: 'displayArray' },
+                    { message: '🔍 Python: Finding minimum value using min()', action: 'findMinValue' },
+                    { message: '📍 Python: Getting minimum index using .index()', action: 'findMinIndex' },
+                    { message: '🔍 Python: Finding maximum value using max()', action: 'findMaxValue' },
+                    { message: '📍 Python: Getting maximum index using .index()', action: 'findMaxIndex' },
+                    { message: '📊 Python: Showing minimum details', action: 'showMinDetails' },
+                    { message: '📊 Python: Showing maximum details', action: 'showMaxDetails' },
+                    { message: '🔄 Python: Swapping using tuple unpacking', action: 'swapElements' },
+                    { message: '📤 Python: Displaying final result', action: 'showResult' }
                 ]
             },
             java: {
                 icon: '☕',
                 name: 'Java',
-                variables: ['n', 'arr[]', 'minIndex', 'maxIndex', 'temp'],
+                variables: ['n', 'arr[]', 'minVal', 'maxVal', 'minIndex', 'maxIndex', 'temp'],
                 code: [
-                    { text: 'int n = arr.length;', comment: 'Get array length' },
-                    { text: 'System.out.println(Arrays.toString(arr));', comment: 'Display input array' },
-                    { text: 'int minIndex = findMinIndex(arr);', comment: 'Find minimum element index' },
-                    { text: 'int maxIndex = findMaxIndex(arr);', comment: 'Find maximum element index' },
-                    { text: 'int temp = arr[minIndex];', comment: 'Store min element in temp' },
-                    { text: 'arr[minIndex] = arr[maxIndex];', comment: 'Move max to min position' },
-                    { text: 'arr[maxIndex] = temp;', comment: 'Move temp to max position' },
-                    { text: 'System.out.println(Arrays.toString(arr));', comment: 'Display final array' }
+                    { text: '// Java Array Swap Program', comment: 'Program header' },
+                    { text: 'public class ArraySwap {', comment: 'Class declaration' },
+                    { text: '  public static void main(String[] args) {', comment: 'Main method' },
+                    { text: '    int[] arr = {10, 2, 3, 4, 1};', comment: 'Initialize array' },
+                    { text: '    int n = arr.length;', comment: 'Get array length' },
+                    { text: '    System.out.println(Arrays.toString(arr));', comment: 'Display input' },
+                    { text: '    int minIndex = findMinIndex(arr);', comment: 'Find min index' },
+                    { text: '    int maxIndex = findMaxIndex(arr);', comment: 'Find max index' },
+                    { text: '    int minVal = arr[minIndex];', comment: 'Get min value' },
+                    { text: '    int maxVal = arr[maxIndex];', comment: 'Get max value' },
+                    { text: '    System.out.println("Min: " + minVal + " at " + minIndex);', comment: 'Show min' },
+                    { text: '    System.out.println("Max: " + maxVal + " at " + maxIndex);', comment: 'Show max' },
+                    { text: '    int temp = arr[minIndex];', comment: 'Store in temp' },
+                    { text: '    arr[minIndex] = arr[maxIndex];', comment: 'Move max to min pos' },
+                    { text: '    arr[maxIndex] = temp;', comment: 'Move temp to max pos' },
+                    { text: '    System.out.println(Arrays.toString(arr));', comment: 'Display result' },
+                    { text: '  }', comment: 'End main method' },
+                    { text: '}', comment: 'End class' }
+                ],
+                steps: [
+                    { message: '☕ Java: Starting program with class declaration', action: 'showHeader' },
+                    { message: '🏗️ Java: Declaring main method', action: 'initMethod' },
+                    { message: '📥 Java: Initializing int array', action: 'initArray' },
+                    { message: '📏 Java: Getting array.length property', action: 'calcLength' },
+                    { message: '📺 Java: Using Arrays.toString() to display', action: 'displayArray' },
+                    { message: '🔍 Java: Calling findMinIndex() method', action: 'findMinIndex' },
+                    { message: '🔍 Java: Calling findMaxIndex() method', action: 'findMaxIndex' },
+                    { message: '📊 Java: Accessing arr[minIndex] for value', action: 'getMinValue' },
+                    { message: '📊 Java: Accessing arr[maxIndex] for value', action: 'getMaxValue' },
+                    { message: '📊 Java: Printing minimum details', action: 'showMinDetails' },
+                    { message: '📊 Java: Printing maximum details', action: 'showMaxDetails' },
+                    { message: '💾 Java: Storing arr[minIndex] in temp variable', action: 'storeTemp' },
+                    { message: '➡️ Java: Moving arr[maxIndex] to arr[minIndex]', action: 'moveMaxToMin' },
+                    { message: '⬅️ Java: Moving temp to arr[maxIndex]', action: 'moveTempToMax' },
+                    { message: '📤 Java: Using Arrays.toString() for result', action: 'showResult' }
                 ]
             },
             cpp: {
                 icon: '⚡',
                 name: 'C++',
-                variables: ['n', 'arr[]', 'minIndex', 'maxIndex'],
+                variables: ['n', 'arr[]', 'minVal', 'maxVal', 'minIndex', 'maxIndex'],
                 code: [
-                    { text: 'int n = arr.size();', comment: 'Get vector size' },
-                    { text: 'cout << "Array: "; printArray(arr);', comment: 'Display input array' },
-                    { text: 'int minIndex = min_element(arr.begin(), arr.end()) - arr.begin();', comment: 'Find min index using STL' },
-                    { text: 'int maxIndex = max_element(arr.begin(), arr.end()) - arr.begin();', comment: 'Find max index using STL' },
-                    { text: 'swap(arr[minIndex], arr[maxIndex]);', comment: 'Swap using STL swap function' },
-                    { text: 'cout << "Result: "; printArray(arr);', comment: 'Display final array' }
+                    { text: '// C++ Array Swap Program', comment: 'Program header' },
+                    { text: '#include <iostream>', comment: 'Include iostream' },
+                    { text: '#include <vector>', comment: 'Include vector' },
+                    { text: '#include <algorithm>', comment: 'Include algorithm' },
+                    { text: 'using namespace std;', comment: 'Using std namespace' },
+                    { text: 'int main() {', comment: 'Main function' },
+                    { text: '  vector<int> arr = {10, 2, 3, 4, 1};', comment: 'Initialize vector' },
+                    { text: '  int n = arr.size();', comment: 'Get vector size' },
+                    { text: '  cout << "Array: "; printVector(arr);', comment: 'Display input' },
+                    { text: '  auto minIt = min_element(arr.begin(), arr.end());', comment: 'Find min iterator' },
+                    { text: '  auto maxIt = max_element(arr.begin(), arr.end());', comment: 'Find max iterator' },
+                    { text: '  int minIndex = minIt - arr.begin();', comment: 'Calculate min index' },
+                    { text: '  int maxIndex = maxIt - arr.begin();', comment: 'Calculate max index' },
+                    { text: '  cout << "Min: " << *minIt << " at " << minIndex;', comment: 'Show min' },
+                    { text: '  cout << "Max: " << *maxIt << " at " << maxIndex;', comment: 'Show max' },
+                    { text: '  swap(arr[minIndex], arr[maxIndex]);', comment: 'STL swap function' },
+                    { text: '  cout << "Result: "; printVector(arr);', comment: 'Display result' },
+                    { text: '  return 0;', comment: 'Return success' },
+                    { text: '}', comment: 'End main function' }
+                ],
+                steps: [
+                    { message: '⚡ C++: Starting with includes and headers', action: 'showHeader' },
+                    { message: '📚 C++: Including <iostream>, <vector>, <algorithm>', action: 'showIncludes' },
+                    { message: '🏗️ C++: Declaring main() function', action: 'initMethod' },
+                    { message: '📥 C++: Creating vector<int> with initializer list', action: 'initArray' },
+                    { message: '📏 C++: Using .size() method', action: 'calcLength' },
+                    { message: '📺 C++: Using cout to display vector', action: 'displayArray' },
+                    { message: '🔍 C++: Using min_element() STL algorithm', action: 'findMinIterator' },
+                    { message: '🔍 C++: Using max_element() STL algorithm', action: 'findMaxIterator' },
+                    { message: '📍 C++: Calculating index from iterator arithmetic', action: 'calcMinIndex' },
+                    { message: '📍 C++: Calculating index from iterator arithmetic', action: 'calcMaxIndex' },
+                    { message: '📊 C++: Using cout to show min details', action: 'showMinDetails' },
+                    { message: '📊 C++: Using cout to show max details', action: 'showMaxDetails' },
+                    { message: '🔄 C++: Using STL swap() function', action: 'swapElements' },
+                    { message: '📤 C++: Using cout for final result', action: 'showResult' }
                 ]
             },
             javascript: {
                 icon: '🟨',
                 name: 'JavaScript',
-                variables: ['n', 'arr', 'minIndex', 'maxIndex'],
+                variables: ['n', 'arr', 'minVal', 'maxVal', 'minIndex', 'maxIndex'],
                 code: [
-                    { text: 'const n = arr.length;', comment: 'Get array length' },
-                    { text: 'console.log(`Array: [${arr.join(", ")}]`);', comment: 'Display input array' },
-                    { text: 'const minIndex = arr.indexOf(Math.min(...arr));', comment: 'Find min index using spread operator' },
-                    { text: 'const maxIndex = arr.indexOf(Math.max(...arr));', comment: 'Find max index using spread operator' },
-                    { text: '[arr[minIndex], arr[maxIndex]] = [arr[maxIndex], arr[minIndex]];', comment: 'Swap using destructuring' },
-                    { text: 'console.log(`Result: [${arr.join(", ")}]`);', comment: 'Display final array' }
+                    { text: '// JavaScript Array Swap Program', comment: 'Program header' },
+                    { text: 'function swapLargestSmallest() {', comment: 'Function declaration' },
+                    { text: '  const arr = [10, 2, 3, 4, 1];', comment: 'Initialize array with const' },
+                    { text: '  const n = arr.length;', comment: 'Get array length' },
+                    { text: '  console.log(`Array: [${arr.join(", ")}]`);', comment: 'Display with template literal' },
+                    { text: '  const minVal = Math.min(...arr);', comment: 'Find min using spread operator' },
+                    { text: '  const maxVal = Math.max(...arr);', comment: 'Find max using spread operator' },
+                    { text: '  const minIndex = arr.indexOf(minVal);', comment: 'Find min index' },
+                    { text: '  const maxIndex = arr.indexOf(maxVal);', comment: 'Find max index' },
+                    { text: '  console.log(`Min: ${minVal} at index ${minIndex}`);', comment: 'Show min with template literal' },
+                    { text: '  console.log(`Max: ${maxVal} at index ${maxIndex}`);', comment: 'Show max with template literal' },
+                    { text: '  [arr[minIndex], arr[maxIndex]] = [arr[maxIndex], arr[minIndex]];', comment: 'Destructuring assignment swap' },
+                    { text: '  console.log(`Result: [${arr.join(", ")}]`);', comment: 'Display result' },
+                    { text: '  return arr;', comment: 'Return modified array' },
+                    { text: '}', comment: 'End function' },
+                    { text: 'swapLargestSmallest();', comment: 'Call function' }
+                ],
+                steps: [
+                    { message: '🟨 JavaScript: Starting function declaration', action: 'showHeader' },
+                    { message: '📥 JavaScript: Creating const array with literal notation', action: 'initArray' },
+                    { message: '📏 JavaScript: Accessing .length property', action: 'calcLength' },
+                    { message: '📺 JavaScript: Using template literals and .join()', action: 'displayArray' },
+                    { message: '🔍 JavaScript: Using Math.min() with spread operator', action: 'findMinValue' },
+                    { message: '🔍 JavaScript: Using Math.max() with spread operator', action: 'findMaxValue' },
+                    { message: '📍 JavaScript: Using .indexOf() method', action: 'findMinIndex' },
+                    { message: '📍 JavaScript: Using .indexOf() method', action: 'findMaxIndex' },
+                    { message: '📊 JavaScript: Template literal string interpolation', action: 'showMinDetails' },
+                    { message: '📊 JavaScript: Template literal string interpolation', action: 'showMaxDetails' },
+                    { message: '🔄 JavaScript: Destructuring assignment for swap', action: 'swapElements' },
+                    { message: '📤 JavaScript: Template literal for final output', action: 'showResult' }
                 ]
             }
         };
@@ -700,59 +800,381 @@
 
         function executeCurrentStep() {
             const lang = languages[currentLanguage];
-            let message = '';
+            const step = lang.steps[currentStep];
             
-            switch (currentStep) {
-                case 0: // Initialize/get array length
-                    message = `✅ ${lang.name}: Array length = ${currentArray.length}`;
+            // Display the step message
+            document.getElementById('statusDisplay').textContent = step.message;
+            
+            // Execute the specific action for this step
+            switch (step.action) {
+                case 'showHeader':
+                    executeShowHeader();
                     break;
-                case 1: // Display array
-                    message = `✅ ${lang.name}: Displaying array [${currentArray.join(', ')}]`;
-                    animateArrayDisplay();
+                case 'initMethod':
+                    executeInitMethod();
                     break;
-                case 2: // Find minimum
-                    message = `🔍 ${lang.name}: Finding minimum element...`;
-                    executeFindMin();
-                    return; // Return early as executeFindMin handles the message
-                case 3: // Find maximum
-                    message = `🔍 ${lang.name}: Finding maximum element...`;
-                    executeFindMax();
-                    return; // Return early as executeFindMax handles the message
-                case 4: // Start swap (or temp assignment for Java)
-                    if (currentLanguage === 'java') {
-                        message = `💾 Java: Storing arr[${minIndex}] = ${currentArray[minIndex]} in temp variable`;
-                    } else {
-                        message = `🔄 ${lang.name}: Swapping elements...`;
-                        executeSwap();
-                        return;
+                case 'showIncludes':
+                    executeShowIncludes();
+                    break;
+                case 'initArray':
+                    executeInitArray();
+                    break;
+                case 'calcLength':
+                    executeCalcLength();
+                    break;
+                case 'displayArray':
+                    executeDisplayArray();
+                    break;
+                case 'findMinValue':
+                    executeFindMinValue();
+                    break;
+                case 'findMaxValue':
+                    executeFindMaxValue();
+                    break;
+                case 'findMinIndex':
+                    executeFindMinIndex();
+                    break;
+                case 'findMaxIndex':
+                    executeFindMaxIndex();
+                    break;
+                case 'findMinIterator':
+                    executeFindMinIterator();
+                    break;
+                case 'findMaxIterator':
+                    executeFindMaxIterator();
+                    break;
+                case 'calcMinIndex':
+                    executeCalcMinIndex();
+                    break;
+                case 'calcMaxIndex':
+                    executeCalcMaxIndex();
+                    break;
+                case 'getMinValue':
+                    executeGetMinValue();
+                    break;
+                case 'getMaxValue':
+                    executeGetMaxValue();
+                    break;
+                case 'showMinDetails':
+                    executeShowMinDetails();
+                    break;
+                case 'showMaxDetails':
+                    executeShowMaxDetails();
+                    break;
+                case 'storeTemp':
+                    executeStoreTemp();
+                    break;
+                case 'moveMaxToMin':
+                    executeMoveMaxToMin();
+                    break;
+                case 'moveTempToMax':
+                    executeMoveTempToMax();
+                    break;
+                case 'swapElements':
+                    executeSwapElements();
+                    break;
+                case 'showResult':
+                    executeShowResult();
+                    break;
+                default:
+                    // Fallback for any missing actions
+                    setTimeout(() => {
+                        document.getElementById('statusDisplay').textContent = step.message;
+                    }, 500);
+            }
+        }
+
+        // Individual execution functions for different actions
+        function executeShowHeader() {
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ' ✅';
+            }, 500);
+        }
+
+        function executeInitMethod() {
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ' ✅';
+            }, 500);
+        }
+
+        function executeShowIncludes() {
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ' ✅';
+            }, 500);
+        }
+
+        function executeInitArray() {
+            // Animate array creation
+            currentArray.forEach((_, index) => {
+                setTimeout(() => {
+                    const element = document.getElementById(`element-${index}`);
+                    if (element) element.style.animation = 'found-bounce 0.6s ease';
+                }, index * 100);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ [${currentArray.join(', ')}]`;
+            }, currentArray.length * 100 + 300);
+        }
+
+        function executeCalcLength() {
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ Length = ${currentArray.length}`;
+            }, 500);
+        }
+
+        function executeDisplayArray() {
+            // Animate array display
+            currentArray.forEach((_, index) => {
+                setTimeout(() => {
+                    const element = document.getElementById(`element-${index}`);
+                    if (element) element.style.animation = 'search-pulse 0.6s ease';
+                }, index * 100);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ Displayed: [${currentArray.join(', ')}]`;
+            }, currentArray.length * 100 + 300);
+        }
+
+        function executeFindMinValue() {
+            const minVal = Math.min(...currentArray);
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ Min value = ${minVal}`;
+                updateElement('var-minVal', `minVal = ${minVal}`);
+                updateElement('var-min_val', `min_val = ${minVal}`);
+            }, 500);
+        }
+
+        function executeFindMaxValue() {
+            const maxVal = Math.max(...currentArray);
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ Max value = ${maxVal}`;
+                updateElement('var-maxVal', `maxVal = ${maxVal}`);
+                updateElement('var-max_val', `max_val = ${maxVal}`);
+            }, 500);
+        }
+
+        function executeFindMinIndex() {
+            const minVal = Math.min(...currentArray);
+            minIndex = currentArray.indexOf(minVal);
+            
+            // Animate searching for minimum
+            currentArray.forEach((_, index) => {
+                setTimeout(() => {
+                    const element = document.getElementById(`element-${index}`);
+                    if (index < minIndex) {
+                        element.className = 'array-element searching';
+                        setTimeout(() => {
+                            element.className = 'array-element normal';
+                        }, 300);
+                    } else if (index === minIndex) {
+                        element.className = 'array-element searching';
+                        setTimeout(() => {
+                            element.className = 'array-element min-found';
+                        }, 300);
                     }
-                    break;
-                case 5: // Continue swap for Java or display result for others
-                    if (currentLanguage === 'java') {
-                        message = `➡️ Java: Moving arr[${maxIndex}] = ${currentArray[maxIndex]} to position ${minIndex}`;
-                    } else {
-                        message = `📤 ${lang.name}: Displaying final result`;
-                        showFinalResult();
-                        return;
+                }, index * 200);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ Found at index ${minIndex}`;
+            }, currentArray.length * 200 + 500);
+        }
+
+        function executeFindMaxIndex() {
+            const maxVal = Math.max(...currentArray);
+            maxIndex = currentArray.indexOf(maxVal);
+            
+            // Animate searching for maximum
+            currentArray.forEach((_, index) => {
+                setTimeout(() => {
+                    const element = document.getElementById(`element-${index}`);
+                    if (index < maxIndex && index !== minIndex) {
+                        element.className = 'array-element searching';
+                        setTimeout(() => {
+                            element.className = 'array-element normal';
+                        }, 300);
+                    } else if (index === maxIndex) {
+                        element.className = 'array-element searching';
+                        setTimeout(() => {
+                            element.className = 'array-element max-found';
+                        }, 300);
                     }
-                    break;
-                case 6: // Complete swap for Java
-                    if (currentLanguage === 'java') {
-                        message = `⬅️ Java: Moving temp = ${originalArray[minIndex]} to position ${maxIndex}`;
-                        executeSwap();
-                        return;
-                    }
-                    break;
-                case 7: // Display result for Java
-                    if (currentLanguage === 'java') {
-                        message = `📤 Java: Displaying final result`;
-                        showFinalResult();
-                        return;
-                    }
-                    break;
+                }, index * 200);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ Found at index ${maxIndex}`;
+            }, currentArray.length * 200 + 500);
+        }
+
+        function executeFindMinIterator() {
+            executeFindMinIndex(); // Similar animation for C++
+        }
+
+        function executeFindMaxIterator() {
+            executeFindMaxIndex(); // Similar animation for C++
+        }
+
+        function executeCalcMinIndex() {
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ minIndex = ${minIndex}`;
+            }, 500);
+        }
+
+        function executeCalcMaxIndex() {
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ maxIndex = ${maxIndex}`;
+            }, 500);
+        }
+
+        function executeGetMinValue() {
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ minVal = ${currentArray[minIndex]}`;
+            }, 500);
+        }
+
+        function executeGetMaxValue() {
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ maxVal = ${currentArray[maxIndex]}`;
+            }, 500);
+        }
+
+        function executeShowMinDetails() {
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ Min: ${currentArray[minIndex]} at ${minIndex}`;
+            }, 500);
+        }
+
+        function executeShowMaxDetails() {
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ Max: ${currentArray[maxIndex]} at ${maxIndex}`;
+            }, 500);
+        }
+
+        function executeStoreTemp() {
+            // Highlight the minimum element being stored
+            const minElement = document.getElementById(`element-${minIndex}`);
+            if (minElement) {
+                minElement.style.border = '3px solid #ffd700';
+                minElement.style.boxShadow = '0 0 20px #ffd700';
             }
             
-            document.getElementById('statusDisplay').textContent = message;
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ temp = ${currentArray[minIndex]}`;
+                updateElement('var-temp', `temp = ${currentArray[minIndex]}`);
+                if (minElement) {
+                    minElement.style.border = '';
+                    minElement.style.boxShadow = '';
+                }
+            }, 1000);
+        }
+
+        function executeMoveMaxToMin() {
+            const minElement = document.getElementById(`element-${minIndex}`);
+            const maxElement = document.getElementById(`element-${maxIndex}`);
+            
+            // Animate moving max value to min position
+            if (maxElement) maxElement.className = 'array-element swapping';
+            
+            setTimeout(() => {
+                // Update the min position with max value
+                if (minElement) {
+                    minElement.innerHTML = `
+                        <div class="index-label">[${minIndex}]</div>
+                        ${currentArray[maxIndex]}
+                        <div class="value-label">val: ${currentArray[maxIndex]}</div>
+                    `;
+                    minElement.className = 'array-element swapping';
+                }
+                
+                setTimeout(() => {
+                    document.getElementById('statusDisplay').textContent += ` ✅ arr[${minIndex}] = ${currentArray[maxIndex]}`;
+                    if (minElement) minElement.className = 'array-element normal';
+                    if (maxElement) maxElement.className = 'array-element max-found';
+                }, 500);
+            }, 1000);
+        }
+
+        function executeMoveTempToMax() {
+            const maxElement = document.getElementById(`element-${maxIndex}`);
+            const tempValue = currentArray[minIndex]; // Original min value
+            
+            // Animate moving temp to max position
+            if (maxElement) maxElement.className = 'array-element swapping';
+            
+            setTimeout(() => {
+                // Perform the actual swap
+                [currentArray[minIndex], currentArray[maxIndex]] = [currentArray[maxIndex], currentArray[minIndex]];
+                
+                // Update the max position with temp value
+                if (maxElement) {
+                    maxElement.innerHTML = `
+                        <div class="index-label">[${maxIndex}]</div>
+                        ${currentArray[maxIndex]}
+                        <div class="value-label">val: ${currentArray[maxIndex]}</div>
+                    `;
+                }
+                
+                setTimeout(() => {
+                    document.getElementById('statusDisplay').textContent += ` ✅ arr[${maxIndex}] = temp (${currentArray[maxIndex]})`;
+                    if (maxElement) maxElement.className = 'array-element normal';
+                }, 500);
+            }, 1000);
+        }
+
+        function executeSwapElements() {
+            const minElement = document.getElementById(`element-${minIndex}`);
+            const maxElement = document.getElementById(`element-${maxIndex}`);
+            
+            // Animate swap
+            if (minElement) minElement.className = 'array-element swapping';
+            if (maxElement) maxElement.className = 'array-element swapping';
+            
+            setTimeout(() => {
+                // Perform the actual swap
+                [currentArray[minIndex], currentArray[maxIndex]] = [currentArray[maxIndex], currentArray[minIndex]];
+                
+                // Update the visual elements
+                if (minElement) {
+                    minElement.innerHTML = `
+                        <div class="index-label">[${minIndex}]</div>
+                        ${currentArray[minIndex]}
+                        <div class="value-label">val: ${currentArray[minIndex]}</div>
+                    `;
+                }
+                if (maxElement) {
+                    maxElement.innerHTML = `
+                        <div class="index-label">[${maxIndex}]</div>
+                        ${currentArray[maxIndex]}
+                        <div class="value-label">val: ${currentArray[maxIndex]}</div>
+                    `;
+                }
+                
+                setTimeout(() => {
+                    if (minElement) minElement.className = 'array-element normal';
+                    if (maxElement) maxElement.className = 'array-element normal';
+                    document.getElementById('statusDisplay').textContent += ` ✅ Swapped! [${currentArray.join(', ')}]`;
+                }, 1000);
+            }, 1000);
+        }
+
+        function executeShowResult() {
+            document.getElementById('outputSection').style.display = 'block';
+            document.getElementById('finalArray').textContent = currentArray.join(' ');
+            
+            // Animate final result
+            currentArray.forEach((_, index) => {
+                setTimeout(() => {
+                    const element = document.getElementById(`element-${index}`);
+                    if (element) element.style.animation = 'found-bounce 0.6s ease';
+                }, index * 100);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent += ` ✅ Final: [${currentArray.join(', ')}]`;
+            }, currentArray.length * 100 + 300);
         }
 
         function animateArrayDisplay() {
