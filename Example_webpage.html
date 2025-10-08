@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Swap - Step by Step Execution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .input-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #5e72e4;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #5e72e4;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 70vh;
+        }
+
+        .algorithm-panel {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 25px;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .algorithm-title {
+            color: #00ff00;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #00ff00;
+            padding-bottom: 10px;
+        }
+
+        .code-line {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .code-line.inactive {
+            color: #666;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .code-line.active {
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+            border-left-color: #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            animation: highlight 1s ease;
+        }
+
+        .code-line.executed {
+            color: #87ceeb;
+            background: rgba(135, 206, 235, 0.1);
+            border-left-color: #87ceeb;
+        }
+
+        @keyframes highlight {
+            0% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .line-number {
+            color: #555;
+            margin-right: 15px;
+            min-width: 30px;
+            font-weight: bold;
+        }
+
+        .comment {
+            color: #888;
+            font-style: italic;
+            margin-left: 10px;
+        }
+
+        .variable-display {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #00ff00;
+        }
+
+        .variable-display h4 {
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .variable-item {
+            margin: 5px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .animation-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .animation-title {
+            color: #5e72e4;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #5e72e4;
+            padding-bottom: 10px;
+            width: 100%;
+        }
+
+        .array-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .array-element {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 12px;
+            position: relative;
+            transition: all 0.6s ease;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .array-element.normal {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border: 3px solid #0984e3;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+        }
+
+        .array-element.searching {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            color: white;
+            border: 3px solid #e17055;
+            animation: search-pulse 1s infinite;
+            box-shadow: 0 0 25px rgba(253, 203, 110, 0.7);
+        }
+
+        .array-element.min-found {
+            background: linear-gradient(135deg, #ff7675, #d63031);
+            color: white;
+            border: 3px solid #d63031;
+            animation: found-bounce 1s ease;
+            box-shadow: 0 0 25px rgba(255, 118, 117, 0.7);
+        }
+
+        .array-element.max-found {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            color: white;
+            border: 3px solid #6c5ce7;
+            animation: found-bounce 1s ease;
+            box-shadow: 0 0 25px rgba(162, 155, 254, 0.7);
+        }
+
+        .array-element.swapping {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+            border: 3px solid #00a085;
+            animation: swap-animation 2s ease;
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(0, 184, 148, 0.8);
+        }
+
+        @keyframes search-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes found-bounce {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-15px); }
+            50% { transform: translateY(0); }
+            75% { transform: translateY(-8px); }
+        }
+
+        @keyframes swap-animation {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(5deg); }
+            50% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(1.2) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .index-label {
+            position: absolute;
+            top: -30px;
+            font-size: 0.9rem;
+            color: #5e72e4;
+            background: rgba(94, 114, 228, 0.1);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .value-label {
+            position: absolute;
+            bottom: -30px;
+            font-size: 0.8rem;
+            color: #666;
+            background: rgba(255,255,255,0.8);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .status-display {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .btn-primary { background: #007bff; color: white; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-warning { background: #ffc107; color: #212529; }
+        .btn-danger { background: #dc3545; color: white; }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .output-section {
+            background: rgba(40, 167, 69, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+
+        .final-array {
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .algorithm-panel, .animation-panel {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .array-element {
+                width: 60px;
+                height: 60px;
+                font-size: 1.2rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔄 Python Array Swap - Line by Line Execution</h1>
+            <p>Watch how Python executes the algorithm step by step</p>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label>Enter array elements (space-separated):</label>
+                <input type="text" id="arrayInput" placeholder="10 2 3 4 1" value="10 2 3 4 1">
+            </div>
+            <button class="btn-primary" onclick="createArray()">🎯 Create Array & Start</button>
+        </div>
+
+        <div class="main-content">
+            <!-- Algorithm Panel -->
+            <div class="algorithm-panel">
+                <div class="algorithm-title">🐍 Python Code Execution</div>
+                
+                <div class="code-line inactive" id="line-0">
+                    <span class="line-number">1</span>
+                    <span>n = int(input())</span>
+                    <span class="comment"># Read array size</span>
+                </div>
+                
+                <div class="code-line inactive" id="line-1">
+                    <span class="line-number">2</span>
+                    <span>arr = list(map(int, input().split()))</span>
+                    <span class="comment"># Read array</span>
+                </div>
+                
+                <div class="code-line inactive" id="line-2">
+                    <span class="line-number">3</span>
+                    <span>min_index = arr.index(min(arr))</span>
+                    <span class="comment"># Find min index</span>
+                </div>
+                
+                <div class="code-line inactive" id="line-3">
+                    <span class="line-number">4</span>
+                    <span>max_index = arr.index(max(arr))</span>
+                    <span class="comment"># Find max index</span>
+                </div>
+                
+                <div class="code-line inactive" id="line-4">
+                    <span class="line-number">5</span>
+                    <span>arr[min_index], arr[max_index] = arr[max_index], arr[min_index]</span>
+                    <span class="comment"># Swap</span>
+                </div>
+                
+                <div class="code-line inactive" id="line-5">
+                    <span class="line-number">6</span>
+                    <span>print(*arr)</span>
+                    <span class="comment"># Output result</span>
+                </div>
+
+                <div class="variable-display" id="variableDisplay">
+                    <h4>📊 Variables:</h4>
+                    <div class="variable-item" id="nVar">n = ?</div>
+                    <div class="variable-item" id="arrVar">arr = []</div>
+                    <div class="variable-item" id="minIndexVar">min_index = ?</div>
+                    <div class="variable-item" id="maxIndexVar">max_index = ?</div>
+                </div>
+            </div>
+
+            <!-- Animation Panel -->
+            <div class="animation-panel">
+                <div class="animation-title">🎬 Array Visualization</div>
+                
+                <div class="status-display" id="statusDisplay">
+                    Enter your array and click "Create Array & Start" to begin!
+                </div>
+
+                <div class="array-container" id="arrayContainer">
+                    <!-- Array elements will be generated here -->
+                </div>
+
+                <div class="controls">
+                    <button class="btn-success" onclick="nextStep()" id="nextBtn" disabled>▶️ Next Step</button>
+                    <button class="btn-warning" onclick="autoRun()" id="autoBtn" disabled>⚡ Auto Run</button>
+                    <button class="btn-danger" onclick="resetDemo()">🔄 Reset</button>
+                </div>
+
+                <div class="output-section" id="outputSection">
+                    <h3>📤 Final Output:</h3>
+                    <div class="final-array" id="finalArray"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentArray = [];
+        let originalArray = [];
+        let currentStep = 0;
+        let minIndex = -1;
+        let maxIndex = -1;
+        let isAutoRunning = false;
+
+        const steps = [
+            {
+                message: "📥 Reading array size (n)",
+                action: () => executeReadSize(),
+                lineId: "line-0"
+            },
+            {
+                message: "📥 Reading array elements",
+                action: () => executeReadArray(),
+                lineId: "line-1"
+            },
+            {
+                message: "🔍 Finding smallest element and its index",
+                action: () => executeFindMin(),
+                lineId: "line-2"
+            },
+            {
+                message: "🔍 Finding largest element and its index",
+                action: () => executeFindMax(),
+                lineId: "line-3"
+            },
+            {
+                message: "🔄 Swapping elements using tuple unpacking",
+                action: () => executeSwap(),
+                lineId: "line-4"
+            },
+            {
+                message: "📤 Printing the final array",
+                action: () => executePrint(),
+                lineId: "line-5"
+            }
+        ];
+
+        function createArray() {
+            const input = document.getElementById('arrayInput').value.trim();
+            
+            if (!input) {
+                alert("Please enter some numbers!");
+                return;
+            }
+            
+            try {
+                const numbers = input.split(/\s+/).map(num => {
+                    const parsed = parseInt(num);
+                    if (isNaN(parsed)) throw new Error("Invalid number");
+                    return parsed;
+                });
+                
+                if (numbers.length < 2) {
+                    alert("Please enter at least 2 numbers!");
+                    return;
+                }
+                
+                currentArray = numbers;
+                originalArray = [...currentArray];
+                currentStep = 0;
+                minIndex = -1;
+                maxIndex = -1;
+                
+                visualizeArray();
+                resetCodeLines();
+                updateVariables();
+                
+                document.getElementById('nextBtn').disabled = false;
+                document.getElementById('autoBtn').disabled = false;
+                document.getElementById('statusDisplay').textContent = 
+                    `Array created! Ready to execute Python code. Click "Next Step" to start.`;
+                document.getElementById('outputSection').style.display = 'none';
+                
+            } catch (error) {
+                alert("Please enter valid numbers separated by spaces!");
+            }
+        }
+
+        function visualizeArray() {
+            const container = document.getElementById('arrayContainer');
+            container.innerHTML = '';
+            
+            currentArray.forEach((value, index) => {
+                const element = document.createElement('div');
+                element.className = 'array-element normal';
+                element.id = `element-${index}`;
+                element.innerHTML = `
+                    <div class="index-label">[${index}]</div>
+                    ${value}
+                    <div class="value-label">val: ${value}</div>
+                `;
+                container.appendChild(element);
+            });
+        }
+
+        function resetCodeLines() {
+            document.querySelectorAll('.code-line').forEach(line => {
+                line.className = 'code-line inactive';
+            });
+        }
+
+        function updateVariables() {
+            document.getElementById('nVar').textContent = `n = ${currentArray.length}`;
+            document.getElementById('arrVar').textContent = `arr = [${currentArray.join(', ')}]`;
+            document.getElementById('minIndexVar').textContent = `min_index = ${minIndex >= 0 ? minIndex : '?'}`;
+            document.getElementById('maxIndexVar').textContent = `max_index = ${maxIndex >= 0 ? maxIndex : '?'}`;
+        }
+
+        function nextStep() {
+            if (currentStep >= steps.length) return;
+            
+            // Reset previous line
+            if (currentStep > 0) {
+                const prevLine = document.getElementById(steps[currentStep - 1].lineId);
+                prevLine.className = 'code-line executed';
+            }
+            
+            const step = steps[currentStep];
+            const currentLine = document.getElementById(step.lineId);
+            currentLine.className = 'code-line active';
+            
+            document.getElementById('statusDisplay').textContent = step.message;
+            
+            setTimeout(() => {
+                step.action();
+                updateVariables();
+            }, 800);
+            
+            currentStep++;
+            
+            if (currentStep >= steps.length) {
+                document.getElementById('nextBtn').disabled = true;
+                document.getElementById('autoBtn').disabled = true;
+                setTimeout(() => {
+                    const lastLine = document.getElementById(steps[steps.length - 1].lineId);
+                    lastLine.className = 'code-line executed';
+                }, 1000);
+            }
+        }
+
+        function autoRun() {
+            if (isAutoRunning) return;
+            
+            isAutoRunning = true;
+            document.getElementById('autoBtn').disabled = true;
+            document.getElementById('nextBtn').disabled = true;
+            
+            const autoStep = () => {
+                if (currentStep < steps.length) {
+                    nextStep();
+                    setTimeout(autoStep, 2000);
+                } else {
+                    isAutoRunning = false;
+                }
+            };
+            
+            autoStep();
+        }
+
+        function executeReadSize() {
+            // Simulate reading size
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent = `✅ Read n = ${currentArray.length}`;
+            }, 500);
+        }
+
+        function executeReadArray() {
+            // Animate array creation
+            currentArray.forEach((_, index) => {
+                setTimeout(() => {
+                    const element = document.getElementById(`element-${index}`);
+                    element.style.animation = 'found-bounce 0.6s ease';
+                }, index * 100);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent = 
+                    `✅ Read arr = [${currentArray.join(', ')}]`;
+            }, currentArray.length * 100 + 300);
+        }
+
+        function executeFindMin() {
+            const minVal = Math.min(...currentArray);
+            minIndex = currentArray.indexOf(minVal);
+            
+            // Animate searching
+            currentArray.forEach((_, index) => {
+                setTimeout(() => {
+                    const element = document.getElementById(`element-${index}`);
+                    if (index < minIndex) {
+                        element.className = 'array-element searching';
+                        setTimeout(() => {
+                            element.className = 'array-element normal';
+                        }, 300);
+                    } else if (index === minIndex) {
+                        element.className = 'array-element searching';
+                        setTimeout(() => {
+                            element.className = 'array-element min-found';
+                        }, 300);
+                    }
+                }, index * 200);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent = 
+                    `✅ Found minimum ${minVal} at index ${minIndex}`;
+            }, currentArray.length * 200 + 500);
+        }
+
+        function executeFindMax() {
+            const maxVal = Math.max(...currentArray);
+            maxIndex = currentArray.indexOf(maxVal);
+            
+            // Animate searching
+            currentArray.forEach((_, index) => {
+                setTimeout(() => {
+                    const element = document.getElementById(`element-${index}`);
+                    if (index < maxIndex && index !== minIndex) {
+                        element.className = 'array-element searching';
+                        setTimeout(() => {
+                            element.className = 'array-element normal';
+                        }, 300);
+                    } else if (index === maxIndex) {
+                        element.className = 'array-element searching';
+                        setTimeout(() => {
+                            element.className = 'array-element max-found';
+                        }, 300);
+                    }
+                }, index * 200);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent = 
+                    `✅ Found maximum ${maxVal} at index ${maxIndex}`;
+            }, currentArray.length * 200 + 500);
+        }
+
+        function executeSwap() {
+            const minElement = document.getElementById(`element-${minIndex}`);
+            const maxElement = document.getElementById(`element-${maxIndex}`);
+            
+            // Animate swap
+            minElement.className = 'array-element swapping';
+            maxElement.className = 'array-element swapping';
+            
+            setTimeout(() => {
+                // Perform the actual swap
+                [currentArray[minIndex], currentArray[maxIndex]] = [currentArray[maxIndex], currentArray[minIndex]];
+                
+                // Update the visual elements
+                minElement.innerHTML = `
+                    <div class="index-label">[${minIndex}]</div>
+                    ${currentArray[minIndex]}
+                    <div class="value-label">val: ${currentArray[minIndex]}</div>
+                `;
+                maxElement.innerHTML = `
+                    <div class="index-label">[${maxIndex}]</div>
+                    ${currentArray[maxIndex]}
+                    <div class="value-label">val: ${currentArray[maxIndex]}</div>
+                `;
+                
+                setTimeout(() => {
+                    minElement.className = 'array-element normal';
+                    maxElement.className = 'array-element normal';
+                    document.getElementById('statusDisplay').textContent = 
+                        `✅ Swapped elements! Array is now [${currentArray.join(', ')}]`;
+                }, 1000);
+            }, 1000);
+        }
+
+        function executePrint() {
+            document.getElementById('outputSection').style.display = 'block';
+            document.getElementById('finalArray').textContent = currentArray.join(' ');
+            
+            // Animate final result
+            currentArray.forEach((_, index) => {
+                setTimeout(() => {
+                    const element = document.getElementById(`element-${index}`);
+                    element.style.animation = 'found-bounce 0.6s ease';
+                }, index * 100);
+            });
+            
+            setTimeout(() => {
+                document.getElementById('statusDisplay').textContent = 
+                    `🎉 Program completed! Final output: ${currentArray.join(' ')}`;
+            }, currentArray.length * 100 + 300);
+        }
+
+        function resetDemo() {
+            currentArray = [...originalArray];
+            currentStep = 0;
+            minIndex = -1;
+            maxIndex = -1;
+            isAutoRunning = false;
+            
+            if (originalArray.length > 0) {
+                visualizeArray();
+                resetCodeLines();
+                updateVariables();
+                
+                document.getElementById('nextBtn').disabled = false;
+                document.getElementById('autoBtn').disabled = false;
+                document.getElementById('statusDisplay').textContent = 
+                    'Reset complete! Click "Next Step" to start execution again.';
+                document.getElementById('outputSection').style.display = 'none';
+            } else {
+                document.getElementById('statusDisplay').textContent = 
+                    'Enter your array and click "Create Array & Start" to begin!';
+                document.getElementById('arrayContainer').innerHTML = '';
+                document.getElementById('outputSection').style.display = 'none';
+            }
+        }
+
+        // Allow Enter key to create array
+        document.getElementById('arrayInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                createArray();
+            }
+        });
+    </script>
+</body>
+</html>
